@@ -21,12 +21,12 @@
 #include "MainWindow.h"
 #include "Game.h"
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd )
-{
-}
+	wnd(wnd),
+	gfx(wnd),
+	player(RectF(Vec2(400.0f, 500.0f), Vec2(500.0f, 530.0f)), Colors::Green)
+{}
 
 void Game::Go()
 {
@@ -42,4 +42,5 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	player.Draw(gfx);
 }
