@@ -25,7 +25,8 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	player(RectF(Vec2(400.0f, 500.0f), Vec2(500.0f, 530.0f)), Colors::Green)
+	player(RectF(Vec2(400.0f, 500.0f), Vec2(500.0f, 530.0f)), Colors::Green),
+	mBall(Vec2(100.0f, 100.0f), Vec2(100.0f,100.0f))
 {}
 
 void Game::Go()
@@ -38,9 +39,12 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	const float delta = ft.Mark();
+	mBall.Update(delta);
 }
 
 void Game::ComposeFrame()
 {
 	player.Draw(gfx);
+	mBall.Draw(gfx);
 }

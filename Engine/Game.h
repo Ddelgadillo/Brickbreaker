@@ -24,6 +24,8 @@
 #include "Mouse.h"
 #include "Graphics.h"
 #include "Paddle.h"
+#include "Ball.h"
+#include "FrameTimer.h"
 
 class Game
 {
@@ -44,5 +46,7 @@ private:
 	/********************************/
 	/*  User Variables              */
 	/********************************/
+	FrameTimer ft;
 	Paddle player;
+	Ball mBall;
 };
