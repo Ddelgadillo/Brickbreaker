@@ -6,7 +6,7 @@ class Paddle
 {
 public:
 	Paddle() = default;
-	Paddle(const RectF& rect);//, Color color);
+	Paddle(const RectF& rect, Color color);
 	void Draw(Graphics& gfx) const;
 private:
 	RectF mRect;

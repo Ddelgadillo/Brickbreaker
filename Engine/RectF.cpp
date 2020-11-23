@@ -18,6 +18,12 @@ RectF::RectF(const Vec2& topLeft, float width, float height)
 	RectF(topLeft, topLeft + Vec2(width, height))
 {}
 
+RectF RectF::FromCenter(const Vec2& center, float halfWidth, float halfHeight)
+{
+	const Vec2 half(halfWidth, halfHeight);
+	return RectF(center - half, center + half);
+}
+
 bool RectF::Collision(const RectF& other) const
 {
 	return mLeft <= other.mRight && mRight >= other.mLeft &&

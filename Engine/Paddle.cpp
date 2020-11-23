@@ -1,9 +1,9 @@
 #include "Paddle.h"
 
-Paddle::Paddle(const RectF& rect)//, Color color)
+Paddle::Paddle(const RectF& rect, Color color)
 	:
-	mRect(rect)
-	//mColor(color)
+	mRect(rect),
+	mColor(color)
 {
 	
 }
