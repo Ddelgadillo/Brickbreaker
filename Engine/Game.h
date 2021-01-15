@@ -49,4 +49,5 @@ private:
 	FrameTimer ft;
 	Paddle player;
 	Ball mBall;
+	RectF mWalls;
 };

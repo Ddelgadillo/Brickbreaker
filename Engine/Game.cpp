@@ -26,7 +26,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	player(RectF(Vec2(400.0f, 500.0f), Vec2(500.0f, 530.0f)), Colors::Green),
-	mBall(Vec2(100.0f, 100.0f), Vec2(100.0f,100.0f))
+	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f)),
+	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight)
 {}
 
 void Game::Go()
@@ -41,10 +42,11 @@ void Game::UpdateModel()
 {
 	const float delta = ft.Mark();
 	mBall.Update(delta);
+	mBall.WallCollision(mWalls);
 }
 
 void Game::ComposeFrame()
 {
-	player.Draw(gfx);
+	//player.Draw(gfx);
 	mBall.Draw(gfx);
 }
