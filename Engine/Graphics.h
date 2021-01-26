@@ -57,29 +57,7 @@ public:
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
-	void DrawRect(int xPos, int yPos, int xEnd, int yEnd, Color c)
-	{
-		if (xPos > xEnd)
-		{
-			const int& temp = xPos;
-			xPos = xEnd;
-			xEnd = xPos;
-		}
-
-		if (yPos > yEnd)
-		{
-			const int& temp = yPos;
-			yPos = yEnd;
-			yEnd = yPos;
-		}
-		for (int y = yPos; y <= yEnd; y++)
-		{
-			for (int x = xPos; x <= xEnd; x++)
-			{
-				PutPixel(x, y, 255, 255, 255);
-			}
-		}
-	}
+	void DrawRect(int x0, int y0, int x1, int y1, Color c);
 	void DrawRect(const RectF& rect, Color c)
 	{
 		DrawRect(int(rect.mLeft), int(rect.mTop), int(rect.mRight), int(rect.mBottom), c);
