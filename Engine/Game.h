@@ -47,7 +47,7 @@ private:
 	/*  User Variables              */
 	/********************************/
 	FrameTimer ft;
+	RectF mWalls;
 	Paddle player;
 	Ball mBall;
-	RectF mWalls;
 };
