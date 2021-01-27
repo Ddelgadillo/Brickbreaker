@@ -24,14 +24,14 @@ bool Ball::WallCollision(const RectF& walls)
 	if (ballRect.mBottom >= walls.mBottom)
 	{
 		mPos.y -= ballRect.mBottom - walls.mBottom;
-		mVel.y = -mVel.y;
+		ReboundY();
 		return true;
 	}
 
 	else if (ballRect.mTop <= walls.mTop)
 	{
 		mPos.y += walls.mTop - ballRect.mTop;
-		mVel.y = -mVel.y;
+		ReboundY();
 		return true;
 	}
 
@@ -50,6 +50,11 @@ bool Ball::WallCollision(const RectF& walls)
 	}
 
 	return false;
+}
+
+void Ball::ReboundY()
+{
+	mVel.y = -mVel.y;
 }
 
 RectF Ball::GetRect() const

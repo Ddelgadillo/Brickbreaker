@@ -54,5 +54,9 @@ void Game::ComposeFrame()
 {
 	player.Draw(gfx);
 	mBall.Draw(gfx);
-	mBrick.Draw(gfx);
+
+	if (!mBrick.BallCollision(mBall))
+	{
+		mBrick.Draw(gfx);
+	}
 }
