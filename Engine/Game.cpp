@@ -27,7 +27,8 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
 	player(Vec2(450.0f, 500.0f), 50.0f, 15.0f),
-	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f))
+	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f)),
+	mBrick(Vec2(400.0f, 300.0f))
 {}
 
 void Game::Go()
@@ -53,4 +54,5 @@ void Game::ComposeFrame()
 {
 	player.Draw(gfx);
 	mBall.Draw(gfx);
+	mBrick.Draw(gfx);
 }
