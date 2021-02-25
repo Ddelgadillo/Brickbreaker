@@ -5,6 +5,11 @@ Brick::Brick(Vec2& pos)
 	mPos(pos)
 {}
 
+void Brick::Init(Vec2& pos)
+{
+	mPos = pos;
+}
+
 void Brick::Draw(Graphics& gfx) const
 {
 	if (!mIsDestroyed)

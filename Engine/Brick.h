@@ -9,6 +9,7 @@ class Brick
 public:
 	Brick() = default;
 	Brick(Vec2& pos);
+	void Init(Vec2& pos);
 	void Draw(Graphics& gfx) const;
 	bool BallCollision(Ball& ball);
 	RectF GetRect() const;
