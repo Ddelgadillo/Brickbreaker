@@ -14,6 +14,12 @@ void Paddle::Draw(Graphics& gfx) const
 
 bool Paddle::BallCollision(Ball& ball) const
 {
+	if (GetRect().Collision(ball.GetRect()))
+	{
+		ball.ReboundY();
+		return true;
+	}
+
 	return false;
 }
 

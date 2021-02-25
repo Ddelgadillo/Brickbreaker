@@ -51,5 +51,7 @@ private:
 	RectF mWalls;
 	Paddle player;
 	Ball mBall;
-	Brick mBrick;
+	static constexpr int mNumOfRow = 5;
+	static constexpr int mNumOfColumn = 4;
+	Brick mBrick[mNumOfRow][mNumOfColumn];
 };

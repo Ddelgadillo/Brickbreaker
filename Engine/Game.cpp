@@ -27,9 +27,16 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
 	player(Vec2(450.0f, 500.0f), 50.0f, 15.0f),
-	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f)),
-	mBrick(Vec2(400.0f, 300.0f))
-{}
+	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f))
+{
+	for (int i = 0; i < mNumOfRow; i++)
+	{
+		for (int j = 0; j < mNumOfColumn; j++)
+		{
+
+		}
+	}
+}
 
 void Game::Go()
 {
@@ -47,7 +54,9 @@ void Game::UpdateModel()
 	player.WallCollision(mWalls);
 
 	mBall.Update(delta);
-	mBall.WallCollision(mWalls);	
+	mBall.WallCollision(mWalls);
+
+	player.BallCollision(mBall);
 }
 
 void Game::ComposeFrame()
@@ -55,8 +64,8 @@ void Game::ComposeFrame()
 	player.Draw(gfx);
 	mBall.Draw(gfx);
 
-	if (!mBrick.BallCollision(mBall))
-	{
-		mBrick.Draw(gfx);
-	}
+	// (!mBrick.BallCollision(mBall))
+	//{
+		//mBrick.Draw(gfx);
+	//}
 }
