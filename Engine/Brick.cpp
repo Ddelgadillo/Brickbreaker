@@ -5,31 +5,29 @@ Brick::Brick(Vec2& pos)
 	mPos(pos)
 {}
 
-void Brick::Init(Vec2& pos)
-{
-	mPos = pos;
-}
+Brick::Brick(const RectF& rect, Color color)
+	:
+	mRect(rect),
+	mColor(color)
+{}
 
 void Brick::Draw(Graphics& gfx) const
 {
 	if (!mIsDestroyed)
 	{
-		gfx.DrawRect(GetRect(), Colors::Red);
+		gfx.DrawRect(mRect, mColor);
 	}
 }
 
 bool Brick::BallCollision(Ball& ball)
 {
-	if (!mIsDestroyed && GetRect().Collision(ball.GetRect()))
+	if (!mIsDestroyed && mRect.Collision(ball.GetRect()))
 	{
 		ball.ReboundY();
 		mIsDestroyed = true;
+
+		return true;
 	}
 
 	return false;
-}
-
-RectF Brick::GetRect() const
-{
-	return RectF::RectF(mPos, mWidth, mHeight);
 }

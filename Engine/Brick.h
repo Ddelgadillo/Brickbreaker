@@ -9,13 +9,14 @@ class Brick
 public:
 	Brick() = default;
 	Brick(Vec2& pos);
-	void Init(Vec2& pos);
+	Brick(const RectF& rect, Color color);
 	void Draw(Graphics& gfx) const;
 	bool BallCollision(Ball& ball);
-	RectF GetRect() const;
+	static constexpr float mWidth = 40.0f;
+	static constexpr float mHeight = 24.0f;
 private:
 	Vec2 mPos;
-	const float mWidth = 100.0f;
-	const float mHeight = 30.0f;
+	RectF mRect;
+	Color mColor;
 	bool mIsDestroyed = false;
 };
