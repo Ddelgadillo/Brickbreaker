@@ -13,6 +13,7 @@ public:
 	bool WallCollision(const RectF& walls);
 	void ReboundY();
 	RectF GetRect() const;
+	Vec2 GetVelocity() const;
 private:
 	static constexpr float mRadius = 7.0f;
 	Vec2 mPos;

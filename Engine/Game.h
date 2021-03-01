@@ -51,7 +51,9 @@ private:
 	RectF mWalls;
 	Paddle player;
 	Ball mBall;
-	static constexpr int mNumOfRow = 5;
-	static constexpr int mNumOfColumn = 4;
-	Brick mBrick[mNumOfRow][mNumOfColumn];
+	static constexpr int mNumOfRow = 4;
+	static constexpr int mNumOfColumn = 12;
+	static constexpr int mTotalBricks = mNumOfRow * mNumOfColumn;
+	static constexpr Color brickColors[4] = { {230,0,0},{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
+	Brick mBricks[mTotalBricks];
 };
