@@ -15,6 +15,7 @@ public:
 	static constexpr float mWidth = 40.0f;
 	static constexpr float mHeight = 24.0f;
 private:
+	static constexpr float mPadding = 1.0f;
 	Vec2 mPos;
 	RectF mRect;
 	Color mColor;
