@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f))
 {
 	//Position of top left corner of brick grid
-	const Vec2 topLeft(0.0f, 0.0f);
+	const Vec2 topLeft(40.0f, 20.0f);
 
 	//Variable for each brick
 	int i = 0;

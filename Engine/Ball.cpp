@@ -57,6 +57,11 @@ void Ball::ReboundY()
 	mVel.y = -mVel.y;
 }
 
+void Ball::ReboundX()
+{
+	mVel.x = -mVel.x;
+}
+
 RectF Ball::GetRect() const
 {
 	return RectF::FromCenter(mPos, mRadius, mRadius);
@@ -65,4 +70,9 @@ RectF Ball::GetRect() const
 Vec2 Ball::GetVelocity() const
 {
 	return mVel;
+}
+
+Vec2 Ball::GetPosition() const
+{
+	return mPos;
 }

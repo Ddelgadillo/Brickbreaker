@@ -15,7 +15,7 @@ void Brick::Draw(Graphics& gfx) const
 {
 	if (!mIsDestroyed)
 	{
-		gfx.DrawRect(mRect, mColor);
+		gfx.DrawRect(mRect.GetExpanded(-mPadding), mColor);
 	}
 }
 
@@ -23,7 +23,15 @@ bool Brick::BallCollision(Ball& ball)
 {
 	if (!mIsDestroyed && mRect.Collision(ball.GetRect()))
 	{
-		ball.ReboundY();
+		const Vec2 ballPos = ball.GetPosition();
+		if (ballPos.x >= mRect.mLeft && ballPos.x <= mRect.mRight)
+		{
+			ball.ReboundY();
+		}
+		else
+		{
+			ball.ReboundX();
+		}
 		mIsDestroyed = true;
 
 		return true;

@@ -9,6 +9,11 @@ Paddle::Paddle(Vec2& pos, float halfWidth, float halfHeight)
 
 void Paddle::Draw(Graphics& gfx) const
 {
+	//If you want wings...
+	//RectF rect = GetRect();
+	//gfx.DrawRect(rect, wingColor);
+	//rect.left += wingWidth;
+	//rect.right -= wingWidth;
 	gfx.DrawRect(GetRect(), mColor);
 }
 

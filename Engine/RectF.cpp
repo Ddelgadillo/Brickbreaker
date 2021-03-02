@@ -29,3 +29,8 @@ bool RectF::Collision(const RectF& other) const
 	return mLeft <= other.mRight && mRight >= other.mLeft &&
 		mTop <= other.mBottom && mBottom >= other.mTop;
 }
+
+RectF RectF::GetExpanded(float offset) const
+{
+	return RectF(mLeft - offset, mRight + offset, mTop - offset, mBottom + offset);
+}

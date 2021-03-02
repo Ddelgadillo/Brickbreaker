@@ -10,6 +10,7 @@ public:
 	RectF(const Vec2& topLeft, float width, float height);
 	static RectF FromCenter(const Vec2& center, float halfWidth, float halfHeight);
 	bool Collision(const RectF& other) const;
+	RectF GetExpanded(float offset) const;
 public:
 	float mLeft;
 	float mRight;
