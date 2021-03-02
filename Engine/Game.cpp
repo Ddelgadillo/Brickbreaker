@@ -26,8 +26,8 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
-	player(Vec2(450.0f, 500.0f), 50.0f, 15.0f),
-	mBall(Vec2(100.0f, 100.0f), Vec2(300.0f,300.0f))
+	player(Vec2(200.0f, 500.0f), 50.0f, 15.0f),
+	mBall(Vec2(100.0f, 300.0f), Vec2(300.0f,300.0f))
 {
 	//Position of top left corner of brick grid
 	const Vec2 topLeft(40.0f, 20.0f);
@@ -63,7 +63,6 @@ void Game::UpdateModel()
 	player.WallCollision(mWalls);
 
 	mBall.Update(delta);
-	mBall.WallCollision(mWalls);
 
 	bool collisionHappened = false;
 	float curColDistSq;
@@ -93,10 +92,16 @@ void Game::UpdateModel()
 
 	if (collisionHappened)
 	{
+		player.ResetCoolDown();
 		mBricks[curColIndex].ExecuteBallCollision(mBall);
 	}
 
 	player.BallCollision(mBall);
+
+	if (mBall.WallCollision(mWalls))
+	{
+		player.ResetCoolDown();
+	}
 }
 
 void Game::ComposeFrame()

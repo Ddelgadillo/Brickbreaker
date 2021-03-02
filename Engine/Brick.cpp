@@ -1,5 +1,6 @@
 #include "Brick.h"
 #include<assert.h>
+#include<iostream>
 
 Brick::Brick(Vec2& pos)
 	:
@@ -31,6 +32,11 @@ void Brick::ExecuteBallCollision(Ball& ball)
 
 	const Vec2 ballPos = ball.GetPosition();
 
+	if (std::signbit(ball.GetVelocity().x) == std::signbit((ballPos - GetCenter()).x))
+	{
+		ball.ReboundY();
+	}
+
 	if (ballPos.x >= mRect.mLeft && ballPos.x <= mRect.mRight)
 	{
 		ball.ReboundY();
@@ -39,6 +45,7 @@ void Brick::ExecuteBallCollision(Ball& ball)
 	{
 		ball.ReboundX();
 	}
+
 	mIsDestroyed = true;
 }
 
