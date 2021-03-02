@@ -65,9 +65,35 @@ void Game::UpdateModel()
 	mBall.Update(delta);
 	mBall.WallCollision(mWalls);
 
-	for (Brick& b : mBricks)
+	bool collisionHappened = false;
+	float curColDistSq;
+	int curColIndex;
+
+	for (int i = 0; i < mTotalBricks; i++)
 	{
-		b.BallCollision(mBall);
+		if (mBricks[i].CheckBallCollision(mBall))
+		{
+			const float newColDistSq = (mBall.GetPosition() - mBricks[i].GetCenter()).GetLengthSq();
+			if (collisionHappened)
+			{
+				if (newColDistSq < curColDistSq)
+				{
+					curColDistSq = newColDistSq;
+					curColIndex = i;
+				}
+			}
+			else
+			{
+				curColDistSq = newColDistSq;
+				curColIndex = i;
+				collisionHappened = true;
+			}
+		}
+	}
+
+	if (collisionHappened)
+	{
+		mBricks[curColIndex].ExecuteBallCollision(mBall);
 	}
 
 	player.BallCollision(mBall);

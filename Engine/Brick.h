@@ -11,7 +11,9 @@ public:
 	Brick(Vec2& pos);
 	Brick(const RectF& rect, Color color);
 	void Draw(Graphics& gfx) const;
-	bool BallCollision(Ball& ball);
+	bool CheckBallCollision(const Ball& ball) const;
+	void ExecuteBallCollision(Ball& ball);
+	Vec2 GetCenter() const;
 	static constexpr float mWidth = 40.0f;
 	static constexpr float mHeight = 24.0f;
 private:
