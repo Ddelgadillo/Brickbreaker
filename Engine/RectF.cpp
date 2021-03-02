@@ -34,3 +34,8 @@ RectF RectF::GetExpanded(float offset) const
 {
 	return RectF(mLeft - offset, mRight + offset, mTop - offset, mBottom + offset);
 }
+
+Vec2 RectF::GetCenter() const
+{
+	return Vec2((mLeft + mRight) / 2.0f, (mTop + mBottom) / 2.0f);
+}

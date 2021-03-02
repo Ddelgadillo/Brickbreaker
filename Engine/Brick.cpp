@@ -1,4 +1,5 @@
 #include "Brick.h"
+#include<assert.h>
 
 Brick::Brick(Vec2& pos)
 	:
@@ -19,23 +20,29 @@ void Brick::Draw(Graphics& gfx) const
 	}
 }
 
-bool Brick::BallCollision(Ball& ball)
+bool Brick::CheckBallCollision(const Ball& ball) const
 {
-	if (!mIsDestroyed && mRect.Collision(ball.GetRect()))
+	return !mIsDestroyed && mRect.Collision(ball.GetRect());
+}
+
+void Brick::ExecuteBallCollision(Ball& ball)
+{
+	assert(CheckBallCollision(ball));
+
+	const Vec2 ballPos = ball.GetPosition();
+
+	if (ballPos.x >= mRect.mLeft && ballPos.x <= mRect.mRight)
 	{
-		const Vec2 ballPos = ball.GetPosition();
-		if (ballPos.x >= mRect.mLeft && ballPos.x <= mRect.mRight)
-		{
-			ball.ReboundY();
-		}
-		else
-		{
-			ball.ReboundX();
-		}
-		mIsDestroyed = true;
-
-		return true;
+		ball.ReboundY();
 	}
+	else
+	{
+		ball.ReboundX();
+	}
+	mIsDestroyed = true;
+}
 
-	return false;
+Vec2 Brick::GetCenter() const
+{
+	return mRect.GetCenter();
 }
