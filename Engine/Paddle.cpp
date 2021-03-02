@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include "SpriteCodex.h"
 #include<iostream>
 
 Paddle::Paddle(Vec2& pos, float halfWidth, float halfHeight)
@@ -15,7 +16,8 @@ void Paddle::Draw(Graphics& gfx) const
 	//gfx.DrawRect(rect, wingColor);
 	//rect.left += wingWidth;
 	//rect.right -= wingWidth;
-	gfx.DrawRect(GetRect(), mColor);
+	//gfx.DrawRect(GetRect(), mColor);
+	SpriteCodex::DrawPaddle(mPos, gfx);
 }
 
 bool Paddle::BallCollision(Ball& ball)
