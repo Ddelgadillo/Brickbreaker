@@ -1,4 +1,5 @@
 #include "Paddle.h"
+#include<iostream>
 
 Paddle::Paddle(Vec2& pos, float halfWidth, float halfHeight)
 	:
@@ -17,14 +18,35 @@ void Paddle::Draw(Graphics& gfx) const
 	gfx.DrawRect(GetRect(), mColor);
 }
 
-bool Paddle::BallCollision(Ball& ball) const
+bool Paddle::BallCollision(Ball& ball)
 {
-	if (ball.GetVelocity().y > 0.0f && GetRect().Collision(ball.GetRect()))
+	if (!isCoolDown)
 	{
-		ball.ReboundY();
-		return true;
-	}
+		const RectF rect = GetRect();
 
+		if (rect.Collision(ball.GetRect()))
+		{
+			const Vec2 ballPos = ball.GetPosition();
+
+			if (std::signbit(ball.GetVelocity().x) == std::signbit((ballPos - mPos).x))
+			{
+				ball.ReboundY();
+			}
+			else if (ballPos.x >= rect.mLeft && ballPos.x <= rect.mRight)
+			{
+				ball.ReboundY();
+			}
+			else
+			{
+				ball.ReboundX();
+			}
+
+			isCoolDown = true;
+
+			return true;
+		}
+		
+	}
 	return false;
 }
 
@@ -57,4 +79,9 @@ void Paddle::Update(const Keyboard& kbd, float delta)
 RectF Paddle::GetRect() const
 {
 	return RectF::FromCenter(mPos, mHalfWidth, mHalfHeight);
+}
+
+void Paddle::ResetCoolDown()
+{
+	isCoolDown = false;
 }
