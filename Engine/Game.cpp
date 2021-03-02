@@ -26,7 +26,7 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
-	player(Vec2(200.0f, 500.0f), 50.0f, 15.0f),
+	player(Vec2(200.0f, 500.0f), 65.0f, 15.0f),
 	mBall(Vec2(100.0f, 300.0f), Vec2(300.0f,300.0f))
 {
 	//Position of top left corner of brick grid

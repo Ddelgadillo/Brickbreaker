@@ -6,6 +6,8 @@
 class SpriteCodex
 {
 public:
+	//centered drawing of the player paddle 100x30
+	static void DrawPaddle(const Vec2& center, Graphics& gfx);
 	// centered drawing of 14x14 sprite
 	static void DrawBall(const Vec2& center, Graphics& gfx);
 	// centered drawing of 200x160 sprite
