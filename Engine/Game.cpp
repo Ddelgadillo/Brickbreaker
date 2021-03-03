@@ -26,7 +26,9 @@ Game::Game(MainWindow& wnd)
 	wnd(wnd),
 	gfx(wnd),
 	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
-	player(Vec2(200.0f, 500.0f), 65.0f, 15.0f),
+	mLeftWall(RectF(50.0f, 50.0f + Wall::mWidth, 0.0f, Wall::mHeight)),
+	mRightWall(RectF(660.0f, 660.0f + Wall::mWidth, 0.0f, Wall::mHeight)),
+	player(Vec2(300.0f, 525.0f), 65.0f, 15.0f),
 	mBall(Vec2(100.0f, 300.0f), Vec2(300.0f,300.0f))
 {
 	//Position of top left corner of brick grid
@@ -40,26 +42,32 @@ Game::Game(MainWindow& wnd)
 		for (int x = 0; x < mNumOfColumn; x++)
 		{
 			mBricks[i] = Brick(RectF(
-				topLeft + Vec2(x * Brick::mWidth + 3, y * Brick::mHeight),
+				topLeft + Vec2(x * Brick::mWidth, y * Brick::mHeight),
 				Brick::mWidth, Brick::mHeight), brickColors[y]);
 			i++;
 		}
 	}
 
-	//Position of top left corner of brick grid
-	Vec2 wallPos(50.0f, 25.0f);
-	int w = 0;
-	for (int y = 0; y < mNumOfWall; y++)
-	{
-		for (int x = 0; x < mNumOfRowWall; x++)
-		{
-			walls[w] = Wall(wallPos);
-			//wallPos.x += Wall::mWidth;
-			w++;
-		}
+	//Position of top left corner of wall grid
+	//Vec2 wallPos(25.0f, 0.0f);
+	
+	//Variable for each brick
+	//int w = 0;
 
-		wallPos.y += Wall::mHeight;
-	}
+	//for (int y = 0; y < mNumOfRowWall; y++)
+	//{
+		//for (int x = 0; x < mNumOfWall; x++)
+		//{
+			//walls[w] = Wall(RectF(
+				//wallPos + Vec2(x * Wall::mWidth, y * Wall::mHeight),
+				//Wall::mWidth, Wall::mHeight));
+			
+			//wallPos.x = 625.0f;
+			//w++;
+		//}
+
+		//wallPos.x = 25.0f;
+	//}
 }
 
 void Game::Go()
@@ -75,7 +83,8 @@ void Game::UpdateModel()
 	const float delta = ft.Mark();
 
 	player.Update(wnd.kbd, delta);
-	player.WallCollision(mWalls);
+	player.LeftWallCollision(mLeftWall.GetRect());
+	player.RightWallCollision(mRightWall.GetRect());
 
 	mBall.Update(delta);
 
@@ -114,6 +123,7 @@ void Game::UpdateModel()
 	player.BallCollision(mBall);
 
 	if (mBall.WallCollision(mWalls))
+	//if (mBall.WallCollision(mLeftWall.GetRect()))
 	{
 		player.ResetCoolDown();
 	}
@@ -121,12 +131,8 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	//walls.DrawWall(gfx);
-	for (const Wall& w : walls)
-	{
-		w.DrawWall(gfx);
-	}
-	
+	mLeftWall.DrawWall(gfx);
+	mRightWall.DrawWall(gfx);
 	player.Draw(gfx);
 	mBall.Draw(gfx);
 
