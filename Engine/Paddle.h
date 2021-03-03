@@ -12,7 +12,8 @@ public:
 	Paddle(Vec2& pos, float halfWidth, float halfHeight);
 	void Draw(Graphics& gfx) const;
 	bool BallCollision(Ball& ball);
-	void  WallCollision(const RectF& walls);
+	void  LeftWallCollision(const RectF& walls);
+	void  RightWallCollision(const RectF& rightwall);
 	void Update(const Keyboard& kbd, float delta);
 	RectF GetRect() const;
 	void ResetCoolDown();

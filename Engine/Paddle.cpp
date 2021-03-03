@@ -57,17 +57,27 @@ bool Paddle::BallCollision(Ball& ball)
 	return false;
 }
 
-void  Paddle::WallCollision(const RectF& walls)
+void Paddle::LeftWallCollision(const RectF& walls)
 {
 	const RectF rect = GetRect();
 
-	if (rect.mLeft < walls.mLeft)
+	if (rect.mLeft < walls.mRight)
 	{
-		mPos.x += walls.mLeft - rect.mLeft;
+		mPos.x += walls.mRight - rect.mLeft;
 	}
-	else if (rect.mRight + 1 > walls.mRight)
+	//else if (rect.mRight + 1 > walls.mLeft)
+	//{
+		//mPos.x -= rect.mRight - rightwall.mLeft;
+	//}
+}
+
+void Paddle::RightWallCollision(const RectF& rightwall)
+{
+	const RectF rect = GetRect();
+
+	if (rect.mRight + 1 > rightwall.mLeft)
 	{
-		mPos.x -= rect.mRight - walls.mRight;
+		mPos.x -= rect.mRight - rightwall.mLeft;
 	}
 }
 

@@ -49,11 +49,13 @@ private:
 	/*  User Variables              */
 	/********************************/
 	FrameTimer ft;
-	static constexpr int mNumOfWall = 12;
-	static constexpr int mNumOfRowWall = 2;
+	static constexpr int mNumOfWall = 2;
+	static constexpr int mNumOfRowWall = 12;
 	static constexpr int mTotalWall = mNumOfWall * mNumOfRowWall;
 	RectF mWalls;
 	Wall walls[mTotalWall];
+	Wall mLeftWall;
+	Wall mRightWall;
 	Paddle player;
 	Ball mBall;
 	static constexpr int mNumOfRow = 4;
