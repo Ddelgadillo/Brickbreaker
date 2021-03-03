@@ -8,6 +8,7 @@ class Paddle
 {
 public:
 	Paddle() = default;
+	Paddle(Vec2& pos);
 	Paddle(Vec2& pos, float halfWidth, float halfHeight);
 	void Draw(Graphics& gfx) const;
 	bool BallCollision(Ball& ball);

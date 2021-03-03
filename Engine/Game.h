@@ -27,6 +27,7 @@
 #include "Ball.h"
 #include "FrameTimer.h"
 #include "Brick.h"
+#include "Wall.h"
 
 class Game
 {
@@ -48,11 +49,15 @@ private:
 	/*  User Variables              */
 	/********************************/
 	FrameTimer ft;
+	static constexpr int mNumOfWall = 12;
+	static constexpr int mNumOfRowWall = 2;
+	static constexpr int mTotalWall = mNumOfWall * mNumOfRowWall;
 	RectF mWalls;
+	Wall walls[mTotalWall];
 	Paddle player;
 	Ball mBall;
 	static constexpr int mNumOfRow = 4;
-	static constexpr int mNumOfColumn = 18;
+	static constexpr int mNumOfColumn = 14;
 	static constexpr int mTotalBricks = mNumOfRow * mNumOfColumn;
 	static constexpr Color brickColors[4] = { {230,0,0},{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	Brick mBricks[mTotalBricks];

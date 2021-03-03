@@ -30,7 +30,7 @@ Game::Game(MainWindow& wnd)
 	mBall(Vec2(100.0f, 300.0f), Vec2(300.0f,300.0f))
 {
 	//Position of top left corner of brick grid
-	const Vec2 topLeft(40.0f, 20.0f);
+	const Vec2 topLeft(100.0f, 20.0f);
 
 	//Variable for each brick
 	int i = 0;
@@ -44,6 +44,21 @@ Game::Game(MainWindow& wnd)
 				Brick::mWidth, Brick::mHeight), brickColors[y]);
 			i++;
 		}
+	}
+
+	//Position of top left corner of brick grid
+	Vec2 wallPos(50.0f, 25.0f);
+	int w = 0;
+	for (int y = 0; y < mNumOfWall; y++)
+	{
+		for (int x = 0; x < mNumOfRowWall; x++)
+		{
+			walls[w] = Wall(wallPos);
+			//wallPos.x += Wall::mWidth;
+			w++;
+		}
+
+		wallPos.y += Wall::mHeight;
 	}
 }
 
@@ -106,6 +121,12 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+	//walls.DrawWall(gfx);
+	for (const Wall& w : walls)
+	{
+		w.DrawWall(gfx);
+	}
+	
 	player.Draw(gfx);
 	mBall.Draw(gfx);
 
