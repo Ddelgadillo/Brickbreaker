@@ -2,6 +2,11 @@
 #include "SpriteCodex.h"
 #include<iostream>
 
+Paddle::Paddle(Vec2& pos)
+	:
+	mPos(pos)
+{}
+
 Paddle::Paddle(Vec2& pos, float halfWidth, float halfHeight)
 	:
 	mPos(pos),
