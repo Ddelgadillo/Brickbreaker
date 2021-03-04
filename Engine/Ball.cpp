@@ -27,25 +27,25 @@ bool Ball::WallCollision(const RectF& walls)
 		ReboundY();
 		return true;
 	}
-
-	else if (ballRect.mTop <= walls.mTop)
+	if (ballRect.mTop <= walls.mTop)
 	{
 		mPos.y += walls.mTop - ballRect.mTop;
 		ReboundY();
 		return true;
 	}
 
-	if (ballRect.mRight >= walls.mRight)
-	{
-		mPos.x -= ballRect.mRight - walls.mRight;
-		mVel.x = -mVel.x;
-		return true;
-	}
-
-	else if (ballRect.mLeft <= walls.mLeft)
+	if (ballRect.mLeft < walls.mLeft)
 	{
 		mPos.x += walls.mLeft - ballRect.mLeft;
-		mVel.x = -mVel.x;
+		ReboundX();
+
+		return true;
+	}
+	else if (ballRect.mRight > walls.mRight)
+	{
+		mPos.x -= ballRect.mRight - walls.mRight;
+		ReboundX();
+
 		return true;
 	}
 
