@@ -25,11 +25,11 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
-	mWalls(0.0f, gfx.ScreenWidth, 0.0f, gfx.ScreenHeight),
-	mLeftWall(RectF(50.0f, 50.0f + Wall::mWidth, 0.0f, Wall::mHeight)),
-	mRightWall(RectF(660.0f, 660.0f + Wall::mWidth, 0.0f, Wall::mHeight)),
+	mLeftWall(Vec2(75.0f, 25.0f)),
+	mRightWall(Vec2(685.0f, 25.0f)),
+	mWalls(mLeftWall.GetPos().x + (Wall::mWidth / 2.0f), mRightWall.GetPos().x - 25.0f, 0.0f, gfx.ScreenHeight),
 	player(Vec2(300.0f, 525.0f), 65.0f, 15.0f),
-	mBall(Vec2(100.0f, 300.0f), Vec2(300.0f,300.0f))
+	mBall(Vec2(300.0f, 300.0f), Vec2(300.0f, 300.0f))
 {
 	//Position of top left corner of brick grid
 	const Vec2 topLeft(100.0f, 20.0f);
@@ -47,46 +47,30 @@ Game::Game(MainWindow& wnd)
 			i++;
 		}
 	}
-
-	//Position of top left corner of wall grid
-	//Vec2 wallPos(25.0f, 0.0f);
-	
-	//Variable for each brick
-	//int w = 0;
-
-	//for (int y = 0; y < mNumOfRowWall; y++)
-	//{
-		//for (int x = 0; x < mNumOfWall; x++)
-		//{
-			//walls[w] = Wall(RectF(
-				//wallPos + Vec2(x * Wall::mWidth, y * Wall::mHeight),
-				//Wall::mWidth, Wall::mHeight));
-			
-			//wallPos.x = 625.0f;
-			//w++;
-		//}
-
-		//wallPos.x = 25.0f;
-	//}
 }
 
 void Game::Go()
 {
-	gfx.BeginFrame();	
-	UpdateModel();
+	gfx.BeginFrame();
+	float elapsedTime = ft.Mark();
+
+	while (elapsedTime > 0.0f)
+	{
+		const float dt = std::min(0.0025f, elapsedTime);
+		UpdateModel(dt);
+		elapsedTime -= dt;
+	}
+
 	ComposeFrame();
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::UpdateModel(float dt)
 {
-	const float delta = ft.Mark();
+	player.Update(wnd.kbd, dt);
+	player.WallCollision(mWalls);
 
-	player.Update(wnd.kbd, delta);
-	player.LeftWallCollision(mLeftWall.GetRect());
-	player.RightWallCollision(mRightWall.GetRect());
-
-	mBall.Update(delta);
+	mBall.Update(dt);
 
 	bool collisionHappened = false;
 	float curColDistSq;
@@ -123,7 +107,6 @@ void Game::UpdateModel()
 	player.BallCollision(mBall);
 
 	if (mBall.WallCollision(mWalls))
-	//if (mBall.WallCollision(mLeftWall.GetRect()))
 	{
 		player.ResetCoolDown();
 	}

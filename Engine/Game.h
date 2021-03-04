@@ -38,7 +38,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
-	void UpdateModel();
+	void UpdateModel(float dt);
 	/********************************/
 	/*  User Functions              */
 	/********************************/
@@ -49,13 +49,9 @@ private:
 	/*  User Variables              */
 	/********************************/
 	FrameTimer ft;
-	static constexpr int mNumOfWall = 2;
-	static constexpr int mNumOfRowWall = 12;
-	static constexpr int mTotalWall = mNumOfWall * mNumOfRowWall;
-	RectF mWalls;
-	Wall walls[mTotalWall];
 	Wall mLeftWall;
 	Wall mRightWall;
+	RectF mWalls;
 	Paddle player;
 	Ball mBall;
 	static constexpr int mNumOfRow = 4;
