@@ -20,4 +20,5 @@ public:
 	static void SpriteCodex::DrawReady(const Vec2& center, Graphics& gfx);
 	// centered drawing of 24x24 sprite
 	static void SpriteCodex::DrawPoo(const Vec2& center, Graphics& gfx);
+	static void DrawBBMainMenu(const Vec2& pos, Graphics& gfx);
 };

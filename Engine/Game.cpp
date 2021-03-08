@@ -25,6 +25,7 @@ Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
 	gfx(wnd),
+	mainMenu(Vec2(300.0f, 200.0f), 200.0f, 200.0f),
 	mLeftWall(Vec2(75.0f, 25.0f)),
 	mRightWall(Vec2(685.0f, 25.0f)),
 	mWalls(mLeftWall.GetPos().x + (Wall::mWidth / 2.0f), mRightWall.GetPos().x - 25.0f, 0.0f, gfx.ScreenHeight),
@@ -67,60 +68,65 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
-	player.Update(wnd.kbd, dt);
-	player.WallCollision(mWalls);
-
-	mBall.Update(dt);
-
-	bool collisionHappened = false;
-	float curColDistSq;
-	int curColIndex;
-
-	for (int i = 0; i < mTotalBricks; i++)
+	if (!isGameOver)
 	{
-		if (mBricks[i].CheckBallCollision(mBall))
+		player.Update(wnd.kbd, dt);
+		player.WallCollision(mWalls);
+
+		mBall.Update(dt);
+
+		bool collisionHappened = false;
+		float curColDistSq;
+		int curColIndex;
+
+		for (int i = 0; i < mTotalBricks; i++)
 		{
-			const float newColDistSq = (mBall.GetPosition() - mBricks[i].GetCenter()).GetLengthSq();
-			if (collisionHappened)
+			if (mBricks[i].CheckBallCollision(mBall))
 			{
-				if (newColDistSq < curColDistSq)
+				const float newColDistSq = (mBall.GetPosition() - mBricks[i].GetCenter()).GetLengthSq();
+				if (collisionHappened)
+				{
+					if (newColDistSq < curColDistSq)
+					{
+						curColDistSq = newColDistSq;
+						curColIndex = i;
+					}
+				}
+				else
 				{
 					curColDistSq = newColDistSq;
 					curColIndex = i;
+					collisionHappened = true;
 				}
 			}
-			else
-			{
-				curColDistSq = newColDistSq;
-				curColIndex = i;
-				collisionHappened = true;
-			}
 		}
-	}
 
-	if (collisionHappened)
-	{
-		player.ResetCoolDown();
-		mBricks[curColIndex].ExecuteBallCollision(mBall);
-	}
+		if (collisionHappened)
+		{
+			player.ResetCoolDown();
+			mBricks[curColIndex].ExecuteBallCollision(mBall);
+		}
 
-	player.BallCollision(mBall);
+		player.BallCollision(mBall);
 
-	if (mBall.WallCollision(mWalls))
-	{
-		player.ResetCoolDown();
+		if (mBall.WallCollision(mWalls))
+		{
+			player.ResetCoolDown();
+		}
 	}
 }
 
 void Game::ComposeFrame()
 {
-	mLeftWall.DrawWall(gfx);
+	mainMenu.Draw(gfx);
+
+	/*mLeftWall.DrawWall(gfx);
 	mRightWall.DrawWall(gfx);
 	player.Draw(gfx);
 	mBall.Draw(gfx);
-
-	for (const Brick& b : mBricks)
-	{
-		b.Draw(gfx);
-	}
+	*/
+	//for (const Brick& b : mBricks)
+	//{
+		//b.Draw(gfx);
+	//}
 }

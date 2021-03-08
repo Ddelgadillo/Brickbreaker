@@ -28,6 +28,7 @@
 #include "FrameTimer.h"
 #include "Brick.h"
 #include "Wall.h"
+#include "Scene.h"
 
 class Game
 {
@@ -49,6 +50,8 @@ private:
 	/*  User Variables              */
 	/********************************/
 	FrameTimer ft;
+	bool isGameOver = false;
+	Scene mainMenu;
 	Wall mLeftWall;
 	Wall mRightWall;
 	RectF mWalls;
