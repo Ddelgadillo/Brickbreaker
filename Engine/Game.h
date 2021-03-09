@@ -62,4 +62,5 @@ private:
 	static constexpr int mTotalBricks = mNumOfRow * mNumOfColumn;
 	static constexpr Color brickColors[4] = { {230,0,0},{ 0,230,0 },{ 0,0,230 },{ 0,230,230 } };
 	Brick mBricks[mTotalBricks];
+	enum state { mainSreen, game, endScreen } gameState;
 };

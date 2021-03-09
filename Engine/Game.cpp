@@ -30,7 +30,8 @@ Game::Game(MainWindow& wnd)
 	mRightWall(Vec2(685.0f, 25.0f)),
 	mWalls(mLeftWall.GetPos().x + (Wall::mWidth / 2.0f), mRightWall.GetPos().x - 25.0f, 0.0f, gfx.ScreenHeight),
 	player(Vec2(300.0f, 525.0f), 65.0f, 15.0f),
-	mBall(Vec2(300.0f, 300.0f), Vec2(300.0f, 300.0f))
+	mBall(Vec2(300.0f, 300.0f), Vec2(300.0f, 300.0f)),
+	gameState(mainSreen)
 {
 	//Position of top left corner of brick grid
 	const Vec2 topLeft(100.0f, 20.0f);
@@ -68,6 +69,11 @@ void Game::Go()
 
 void Game::UpdateModel(float dt)
 {
+	if (mainMenu.StartGame(wnd.kbd))
+	{
+		gameState = game;
+	}
+
 	if (!isGameOver)
 	{
 		player.Update(wnd.kbd, dt);
@@ -118,15 +124,29 @@ void Game::UpdateModel(float dt)
 
 void Game::ComposeFrame()
 {
-	mainMenu.Draw(gfx);
+	switch (gameState)
+	{
+		case mainSreen:
+		{
+			mainMenu.Draw(gfx);
+			break;
+		}
+		case game:
+		{
+			mLeftWall.DrawWall(gfx);
+			mRightWall.DrawWall(gfx);
+			player.Draw(gfx);
+			mBall.Draw(gfx);
 
-	/*mLeftWall.DrawWall(gfx);
-	mRightWall.DrawWall(gfx);
-	player.Draw(gfx);
-	mBall.Draw(gfx);
-	*/
-	//for (const Brick& b : mBricks)
-	//{
-		//b.Draw(gfx);
-	//}
+			for (const Brick& b : mBricks)
+			{
+				b.Draw(gfx);
+			}
+			break;
+		}
+		case endScreen:
+		{
+			//break;
+		}
+	}
 }
