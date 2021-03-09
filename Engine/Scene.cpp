@@ -12,3 +12,13 @@ void Scene::Draw(Graphics& gfx) const
 {
 	SpriteCodex::DrawBBMainMenu(mPos, gfx);
 }
+
+bool Scene::StartGame(const Keyboard& kbd)
+{
+	if (kbd.KeyIsPressed(VK_SPACE))
+	{
+		return true;
+	}
+
+	return false;;
+}
